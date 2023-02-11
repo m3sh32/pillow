@@ -1,0 +1,20 @@
+# cache files
+__pycache__
+.pytest_cache
+.mypy_cache
+
+# build artefacts
+site/
+cdk.out
+
+# local env files
+.env
+
+# package files
+__init__.py
+conftest.py
+
+# misc
+.DS_Store
+~$*
+

@@ -1,0 +1,29 @@
+# conda env update --file environment.yaml --prune
+
+name: pillow
+dependencies:
+  - python=3.10            # GitHub actions runners max version
+  - black
+  - pytest
+  - mypy
+  - ipykernel
+  - requests
+  - python-dotenv
+  - types-requests
+  - mkdocstrings           # https://mkdocstrings.github.io
+  - mkdocstrings-python    # https://mkdocstrings.github.io/python/
+  - mkdocs-gen-files        # https://github.com/oprypin/mkdocs-gen-files
+  - mkdocs-literate-nav    # https://github.com/oprypin/mkdocs-literate-nav
+  - mkdocs-material        # https://squidfunk.github.io/mkdocs-material/getting-started/
+  - pymdown-extensions     # https://facelessuser.github.io/pymdown-extensions/
+  - pip
+  - pip:
+    - constructs
+    - aws-cdk-lib
+    - aws_cdk.aws_lambda_python_alpha
+    - aws_cdk.aws_apigatewayv2_alpha
+    - aws_cdk.aws_apigatewayv2_integrations_alpha
+    - aws_cdk.aws_apigatewayv2_authorizers_alpha
+    - aws-lambda-typing   # https://pypi.org/project/aws-lambda-typing/
+channels:
+  - conda-forge

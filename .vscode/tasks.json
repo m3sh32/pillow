@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Synth Sandbox",
+      "type": "shell",
+      "command": "make synth-sandbox",
+      "group": {
+        "kind": "build"
+      }
+    }
+  ]
+}

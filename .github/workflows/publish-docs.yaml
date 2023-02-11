@@ -1,0 +1,47 @@
+# Publish Docs
+# Source: starter workflow repo https://github.com/actions/starter-workflows/blob/main/pages/static.yml
+name: Publish Docs
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write      # to deploy to Pages
+  id-token: write   # to verify the deployment originates from an appropriate source
+
+# Allow one concurrent deployment
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publish-docs:
+    name: Publish Docs
+    environment:
+      name: github-pages
+      url: '${{ steps.deployment.outputs.page_url }}' # single quote supresses VSCode extension intellisense issue https://github.com/cschleiden/vscode-github-actions/issues/175
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -el {0} # required for conda commands - https://github.com/marketplace/actions/setup-miniconda#use-a-default-shell
+    steps:
+      - uses: actions/checkout@v3 # https://github.com/actions/checkout
+      - uses: conda-incubator/setup-miniconda@v2 # https://github.com/marketplace/actions/setup-miniconda
+        with:
+          activate-environment: pillow
+          environment-file: environment.yaml
+          python-version: "3.10"
+      - name: Build Docs
+        run: mkdocs build
+      - name: Setup Pages
+        uses: actions/configure-pages@v3 # https://github.com/actions/configure-pages
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v1 # https://github.com/actions/upload-pages-artifact
+        with:
+          path: './site'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1 # https://github.com/actions/deploy-pages
