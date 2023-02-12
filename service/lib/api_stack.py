@@ -4,6 +4,7 @@ from constructs import Construct
 from aws_cdk import (
     Stack,
     CfnOutput,
+    Duration,
     aws_lambda as _lambda,
     aws_lambda_python_alpha as pylambda,
     aws_apigatewayv2_alpha as apigw2,
@@ -52,11 +53,17 @@ class ApiStack(Stack):
         )
 
         api.add_routes(
+            path="/bill/{id}",
+            integration=integration,
+        )
+
+        api.add_routes(
             path="/secret",
             authorizer=auth.HttpLambdaAuthorizer(
                 "LambdaAuthorizer",
                 handler=cast(_lambda.IFunction, auth_func),
                 response_types=[auth.HttpLambdaResponseType.SIMPLE],
+                results_cache_ttl=Duration.seconds(300),
             ),
             integration=integration,
         )
