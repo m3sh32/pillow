@@ -28,6 +28,23 @@ The first part of my project: implementing an **API Client** for the [Congress A
 
 
 ## **Getting Started**
+### API Client
+Using the Git CLI, you can easily clone the pillow repo locally
+```console
+foo@bar:~$ gh repo clone m3sh32/pillow 
+```
+
+To use the client:
+```{.py3 title="Using API Client" linenums="1"}
+from src.client import Client
+client = Client()
+response = client.bills(117, 'hr', limit=1)
+print(response)
+```
+
+Dependencies:
+- Requests: https://pypi.org/project/requests/
+- Python-Dotenv: https://pypi.org/project/python-dotenv/
 
 ## **License**
 This code is made available under the MIT license.
