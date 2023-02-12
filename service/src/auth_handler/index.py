@@ -25,7 +25,6 @@ def handler(
     """
     HTTP Api Authorizer
     """
-    print(event)
 
     return {
         "isAuthorized": True,
