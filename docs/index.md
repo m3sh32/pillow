@@ -16,4 +16,4 @@ meaning that the messages contain all the information the recipient needs to ful
 ### What I did
 The first part of my project: implementing an **API Client** for the [Congress API](https://api.congress.gov/)
 
-The second part of my project: implementing a basic API Service with AWS. The demo site is: https://f8m11ot12a.execute-api.us-east-1.amazonaws.com/secret
+The second part of my project: implementing a basic API Service with AWS. The demo site is: https://f8m11ot12a.execute-api.us-east-1.amazonaws.com
