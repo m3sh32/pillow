@@ -26,12 +26,14 @@ meaning that the messages contain all the information the recipient needs to ful
 ### What I did
 The first part of my project: implementing an **API Client** for the [Congress API](https://api.congress.gov/)
 
+The second part of my project: implementing a basic API Service with AWS.
+
 
 ## **Getting Started**
 ### API Client
 Using the Git CLI, you can easily clone the pillow repo locally
 ```console
-foo@bar:~$ gh repo clone m3sh32/pillow 
+git clone https://github.com/m3sh32/pillow.git
 ```
 
 To use the client:
