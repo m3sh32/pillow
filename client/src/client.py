@@ -20,14 +20,16 @@ class Client:
         Requester : HTTPRequester
             Assigns the HTTPRequester class to the constructor to prevent multiple instantiation.
 
-        api_key : str = ""
+        api_key : str | None
             Api key for congress api, default is to load the value from an environment variable file in the cwd, otherwise it can be passed into the constructor.
 
     Methods
     -------
-        bill(congress: int | None = None, bill_type: str | None = None, bill_number: int | None = None, start_date: str | None = None, end_date: str | None = None, date_ascending: str | None = None) -> Bill
-            Takes multiple parameters to construct a GET request to api.congress.gov and gets back a bill.
+        bill(congress: int, bill_type: str, bill_number: int, start_date: str | None = None, end_date: str | None = None, date_ascending: str | None = None, offset: int | None = None, limit: int | None = None) -> Bill
+            Takes multiple parameters to make a GET request to https://api.congress.gov and gets back a bill.
 
+        bills(congress: int | None = None, bill_type: str | None = None, bill_number: int | None = None, start_date: str | None = None, end_date: str | None = None, date_ascending: str | None = None, offset: int | None = None, limit: int | None = None) -> Bills
+            Takese multiple parameters to make a GET request to https://api.congress.gov and gets back multiple bills.
     """
 
     def __init__(self, api_key: str | None = None) -> None:
@@ -41,7 +43,7 @@ class Client:
             Requester : HTTPRequester
                 Assigns the HTTPRequester class to the constructor to prevent multiple instantiation.
             api_key : str = ""
-                Api key for congress api, default is to load the value from an environment variable file in the cwd, otherwise it can be passed into the constructor.
+                Api key for congress api, default is to load the value from an environment variable file in the cwd, otherwise it can be passed into the constructor as an argument.
 
         """
         self.host = "https://api.congress.gov/v3/"  # TODO deal with part of the path that is in the host
@@ -170,26 +172,28 @@ class Client:
 
         Parameters
         ----------
-            congress : int | None
-                Expects a "number" as a string literal, between 1 and 117. If only congress is given, expect multiple bills.
+            congress : int
+                Expects an integer, between 1 and 117. If only congress is given, expect multiple bills.
 
-            bill_type : str | None
-                Expects a value of hr, s, hjres, sjres, hconres, sconres, hres, or sres. Still expect multiple bills to be returned.
+            bill_type : str
+                Expects a string literal value of hr, s, hjres, sjres, hconres, sconres, hres, or sres. Still expect multiple bills to be returned.
 
-            bill_number : int | None
-                The bill""s assigned number. Only one bill can be returned.
+            bill_number : int
+                Expects an integer The bill's assigned number. Only one bill can be returned.
 
             start_date : str | None
-                A filter constraining the date from which bills are returned. Will not affect the return value if a bill number is passed. Defaults to an empty string.
+                Optional: A filter constraining the date from which bills are returned. Will not affect the return value if a bill number is passed. Defaults to an empty string.
 
             end_date: str | None
-                A filter constraining the date to which bills are returned. Will not affect the return value if a bill number is passed. Defaults to an empty string.
+                Optional: A filter constraining the date to which bills are returned. Will not affect the return value if a bill number is passed. Defaults to an empty string.
 
             date_ascending: str | None
-                A filter that controls whether bills are filtered either in ascending or descending order, depending on the date they were created. Defaults to "ascending"/True.
+                Optional: A filter that controls whether bills are filtered either in ascending or descending order, depending on the date they were created. Defaults to "ascending"/True.
             offset: int | None
+                Optional: The starting record returned. 0 is the first record.
 
             limit: int | None
+                Optional: A filter constraining the amount of bills returned by the API, the maximum value is 250, while the API sets the default as 20
 
         Returns
         -------
@@ -199,7 +203,7 @@ class Client:
         ------
             ValueError:
                 Invalid value for congress, bill_type, bill_number
-                Invalid date for start_date & end_date
+                Invalid date format for start_date & end_date
 
         """
         # TODO define a typed dict with all the qery params as keys
