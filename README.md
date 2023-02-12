@@ -31,7 +31,7 @@ The second part of my project: implementing a basic API Service with AWS.
 
 ## **Getting Started**
 ### API Client
-Using the GitHub CLI or jsut Git, you can easily clone the pillow repo locally
+Using the GitHub CLI or just local Git, you can easily clone the pillow repo locally
 ```console
 git clone https://github.com/m3sh32/pillow.git
 ```
